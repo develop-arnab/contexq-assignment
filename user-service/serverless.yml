@@ -11,15 +11,6 @@ provider:
   region: ap-south-1
   httpApi:
     cors: true
-  # SNS Topic
-  environment:
-    SNS_TOPIC: { Ref: CustomerTopic }
-  iamRoleStatements:
-    - Effect: "Allow"
-      Action:
-        - "sns:Publish"
-      Resource:
-        - !Ref CustomerTopic
 
 custom:
   stage: "prod"
@@ -95,19 +86,3 @@ plugins:
 
 package:
   individually: true
-
-resources:
-  Resources:
-    CustomerTopic:
-      Type: AWS::SNS::Topic
-      Properties:
-        DisplayName: "customer sns topic description"
-        TopicName: CustomerTopic
-
-  # output for later usages
-  Outputs:
-    CustomerTopicInfo:
-      Description: customer-topic
-      Value: !Ref CustomerTopic
-      Export:
-        Name: customer-topic
